@@ -1,0 +1,15 @@
+thinking about a declarative query language.
+
+You could do joins like
+
+var query = {
+	parent: tablename 
+	children: query 
+}
+
+the child query would select another group of items
+
+Thinking also about eventual transaction consistency .. we could 'collect'
+data using promises, async callbacks.. when the transaction succeeds,
+we get a callback.. if the transaction fails, we can purge later the 
+half-completed data ...
