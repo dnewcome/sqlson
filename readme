@@ -13,3 +13,11 @@ Thinking also about eventual transaction consistency .. we could 'collect'
 data using promises, async callbacks.. when the transaction succeeds,
 we get a callback.. if the transaction fails, we can purge later the 
 half-completed data ...
+
+currently ... 
+It sort of works. I can do a simple query. I can get an object graph back. However
+there is no support for any sort of filtering in the queries. The ID fields are 
+hard coded. There are some other things. Not great.
+
+Some other ideas that I had .. what if we put sql snippets inline in the 
+json? maybe that could work like we put inline xpath into jath?

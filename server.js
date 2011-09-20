@@ -1,23 +1,19 @@
 var express = require('express');
-var http = require('http');
 var getClient = require('./getclient.js').getClient;
-// var uuid = require('node-uuid');
 
 var app = express.createServer();
 app.use(express.bodyParser());
-app.use(express.static( __dirname + '/static' ));
 
-// TODO: extend search to do ordering and limit
 app.post('/query', function(req, res){
+	// keeps track of join tables found when parsing query
 	var joins = [];
-	console.log( "querying: " + req.body );
+
 	var client = getClient();
 	var sql = "select " + cslist( getfields( req.body[0], req.body[1], joins ) ) + " from " + req.body[0] + joinClause( joins ); 
 	console.log( sql );
 	client.query(
 		sql, [], 
 		function( err, results ) { 
-			// res.send( results );
 			res.send( disjoin_set( req.body, results ) );
 			client.end();
 	});
@@ -62,16 +58,14 @@ function getfields( table, obj, joins ) {
 }
 
 /**
- * Reconstruct json object from record set
- * NOte: does not properly normalize data yet.
- * will need to merge records with same parent together
+ * Reconstruct json object array from record set
  */
 function disjoin_set( query, recordset, idkey, idval ) {
 	console.log( idkey + ' ' + idval )
 	var ret = [];
 	for( var i=0; i < recordset.length; i++ ) {
 		if( typeof idkey != 'undefined' ) {
-			if( recordset[idkey] == idval ) {
+			if( recordset[i][idkey] == idval ) {
 				ret.push( disjoin( query, recordset[i], recordset ) );
 			}
 		}
@@ -81,12 +75,15 @@ function disjoin_set( query, recordset, idkey, idval ) {
 	}
 	return ret;
 }
+/**
+ * Reconstruct single json object from record 
+ */
 function disjoin( query, record, recordset ) {
 	var ret = {};
 	var table = query[0];
 	for( item in query[1] ) {
 		if( typeOf( query[1][item] ) == 'array' ) { 
-			ret[item] = disjoin_set( query[1][item], recordset, item, query[1][item] );
+			ret[item] = disjoin_set( query[1][item], recordset, table+'_id', record[table+'_id'] );
 		}
 		else {
 			ret[item] = record[table+'_'+item];
