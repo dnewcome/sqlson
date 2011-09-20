@@ -6,10 +6,11 @@ app.use(express.bodyParser());
 
 app.post('/query', function(req, res){
 	// keeps track of join tables found when parsing query
-	var joins = [];
+	// var joins = [];
 
 	var client = getClient();
-	var sql = "select " + cslist( getfields( req.body[0], req.body[1], joins ) ) + " from " + req.body[0] + joinClause( joins ); 
+	// var sql = "select " + cslist( getfields( req.body[0], req.body[1], joins ) ) + " from " + req.body[0] + joinClause( joins ); 
+	var sql = genSql( req.body[0], req.body[1] ); 
 	console.log( sql );
 	client.query(
 		sql, [], 
@@ -18,6 +19,16 @@ app.post('/query', function(req, res){
 			client.end();
 	});
 });
+
+
+/**
+ * Generate sql query 
+ */
+function genSql( table, obj ) {
+	var ret = "";
+	var joins = [];
+	return "select " + cslist( getfields( table, obj, joins ) ) + " from " + table + joinClause( joins ); 
+}
 
 /**
  * Convert array to comma separated list
