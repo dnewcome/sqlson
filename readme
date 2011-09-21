@@ -21,3 +21,6 @@ hard coded. There are some other things. Not great.
 
 Some other ideas that I had .. what if we put sql snippets inline in the 
 json? maybe that could work like we put inline xpath into jath?
+
+Tests:
+run using expresso
