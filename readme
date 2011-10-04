@@ -24,3 +24,49 @@ json? maybe that could work like we put inline xpath into jath?
 
 Tests:
 run using expresso
+
+# currently this works.. maps fields 1:1 .. 
+# the code is hard coded to use a specific join criteria and only 
+# looks at the field name not the value for mappings.
+var query = [ 
+	"parent", { 
+		"id":"id", 
+		"text":"text",
+		"children": [ 
+			"child", { 
+				"id":"id", 
+				"text":"text"
+			} 
+		]
+	} 
+];
+
+# one possibility, specifying a particular parent, inspired by xpath
+# note that the join criteria are specified in the child query
+var query = [ 
+	"parent[id=1]", { 
+		"id":"id", 
+		"text":"text",
+		"children": [ 
+			"child[id=parent_id]", { 
+				"id":"id", 
+				"text":"text"
+			} 
+		]
+	} 
+];
+
+# another possibility, specifying a particular parent
+# using the field spec as the criteria.
+var query = [ 
+	"parent", { 
+		"id":"id=1", 
+		"text":"text",
+		"children": [ 
+			"child", { 
+				"id":"id", 
+				"text":"text"
+			} 
+		]
+	} 
+];

@@ -2,7 +2,20 @@ var norm = require( '../norm' );
 var assert = require( 'assert' );
 
 exports.testSqlGeneration = function() {
-	var query = [ "parent", { "id":"id", "text":"text", "children": [ "child", {"id":"id", "text":"text" } ] } ];
+	// in this example, join criteria are hard coded in the system.
+	// also there are no filters.
+	var query = [ 
+		"parent", { 
+			"id":"id", 
+			"text":"text",
+			"children": [ 
+				"child", { 
+					"id":"id", 
+					"text":"text"
+				} 
+			]
+		} 
+	];
 
 	var actual = norm.genSql( query[0], query[1] );
 	// note the trailing space
