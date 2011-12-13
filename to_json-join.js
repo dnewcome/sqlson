@@ -16,7 +16,6 @@ function disjoin_set( query, recordset, idkey, idval ) {
 	}
 	return ret;
 }
-exports.disjoin_set = disjoin_set;
 
 /**
  * Reconstruct single json object from record 
