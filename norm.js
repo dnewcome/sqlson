@@ -1,3 +1,6 @@
+typeOf = require('./util').typeOf;
+cslist = require('./util').cslist;
+
 /**
  * Generate sql query 
  */
@@ -6,13 +9,6 @@ exports.genSql = function genSql( table, obj ) {
 	var joins = [];
 	return "select " + cslist( getfields( table, obj, joins ) ) + " from " + table + joinClause( joins ); 
 };
-
-/**
- * Convert array to comma separated list
- */
-function cslist( arr ) {
-	return arr.join(',');
-}
 
 /**
  * Convert array to comma separated list
@@ -45,57 +41,5 @@ function getfields( table, obj, joins ) {
 	return arr;
 }
 
-/**
- * Reconstruct json object array from record set
- */
-function disjoin_set( query, recordset, idkey, idval ) {
-	console.log( idkey + ' ' + idval )
-	var ret = [];
-	for( var i=0; i < recordset.length; i++ ) {
-		if( typeof idkey != 'undefined' ) {
-			if( recordset[i][idkey] == idval ) {
-				ret.push( disjoin( query, recordset[i], recordset ) );
-			}
-		}
-		else {
-			ret.push( disjoin( query, recordset[i], recordset ) );
-		}
-	}
-	return ret;
-}
-exports.disjoin_set = disjoin_set;
-
-/**
- * Reconstruct single json object from record 
- */
-function disjoin( query, record, recordset ) {
-	var ret = {};
-	var table = query[0];
-	for( item in query[1] ) {
-		if( typeOf( query[1][item] ) == 'array' ) { 
-			ret[item] = disjoin_set( query[1][item], recordset, table+'_id', record[table+'_id'] );
-		}
-		else {
-			ret[item] = record[table+'_'+item];
-		}
-	}
-	return ret;
-}
 
 
-// crockford's typeOf
-function typeOf(value) {
-    var s = typeof value;
-    if (s === 'object') {
-        if (value) {
-            if (typeof value.length === 'number' &&
-                    !(value.propertyIsEnumerable('length')) &&
-                    typeof value.splice === 'function') {
-                s = 'array';
-            }
-        } else {
-            s = 'null';
-        }
-    }
-    return s;
-} 

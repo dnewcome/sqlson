@@ -1,5 +1,6 @@
 var express = require('express');
 var norm = require('./norm');
+var disjoin = require('./to_json-join').disjoin_set;
 var getClient = require('./getclient.js').getClient;
 
 var app = express.createServer();
@@ -16,7 +17,7 @@ app.post('/query', function(req, res){
 	client.query(
 		sql, [], 
 		function( err, results ) { 
-			res.send( norm.disjoin_set( req.body, results ) );
+			res.send( disjoin( req.body, results ) );
 			client.end();
 	});
 });
