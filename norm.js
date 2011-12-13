@@ -4,10 +4,17 @@ cslist = require('./util').cslist;
 /**
  * Generate sql query 
  */
-exports.genSql = function genSql( table, obj ) {
+exports.genSql = function genSql( table, obj, where ) {
 	var ret = "";
 	var joins = [];
-	return "select " + cslist( getfields( table, obj, joins ) ) + " from " + table + joinClause( joins ); 
+
+	if( where ) {
+		return "select " + cslist( getfields( table, obj, joins ) ) + " from " + table + joinClause( joins ) + "where " + where; 
+	}
+	else {
+		return "select " + cslist( getfields( table, obj, joins ) ) + " from " + table + joinClause( joins ); 
+	}
+
 };
 
 /**
@@ -17,7 +24,12 @@ function joinClause( arr ) {
 	var ret = " ";
 	for( var i=0; i < arr.length; i++ ) {
 		// TODO: join clause is hard coded
-		ret += "join " + arr[i] + " on fk_parentid = parent.id "
+		if( arr[i].criteria ) {
+			ret += "join " + arr[i].table + " on " + arr[i].criteria + " ";
+		}
+		else {
+			ret += "join " + arr[i].table + " on fk_parentid = parent.id ";
+		}
 	}
 	return ret;
 }
@@ -31,8 +43,8 @@ function getfields( table, obj, joins ) {
 	for( item in obj ) {
 		console.log( 'fields: ' + item + ' ' + obj[item] );
 		if( typeOf( obj[item] ) == 'array' ) {
-			joins.push( obj[item][0] );
-			arr = arr.concat( getfields( obj[item][0], obj[item][1], joins ) );
+			joins.push( { table: obj[item][0], criteria: obj[item][1] } );
+			arr = arr.concat( getfields( obj[item][0], obj[item][2], joins ) );
 		}
 		else {
 			arr.push( table + '.' + obj[item] + ' as ' + table + '_' + obj[item]  );	
