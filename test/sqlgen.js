@@ -96,8 +96,34 @@ exports.testJsonGen = function() {
 		function( err, results ) { 
 			console.log( results );
 			// console.log( disjoin( query, results ) );
-			console.log( JSON.stringify( disjoin( query, results ), null, 4 ) );
+			// console.log( JSON.stringify( disjoin( query, results ), null, 4 ) );
 			client.end();
 		}
 	);
+};
+
+exports.testJsonGen2 = function() {
+
+	var query = [ 
+		"parent", { 
+			"idd":"id", 
+			"textt":"text",
+			"children": [ 
+				"child", "child.fk_parentid = parent.id", { 
+					"iddd":"id", 
+					"texttt":"text",
+					"children": [
+						"child", "child.fk_parentid = 1", {
+							"id":"id",
+							"text":"text"
+						}
+					]
+				} 
+			]
+		} 
+	];
+	var actual = norm.genSql( query[0], query[1] );
+	console.log( actual );
+
+	// assert.equal(expected, actual);
 };
