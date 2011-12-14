@@ -26,7 +26,7 @@ function joinClause( arr ) {
 		// TODO: join clause is hard coded
 		if( arr[i].criteria ) {
 			// we always give table alias to support multiple joins of same table
-			ret += "join " + arr[i].table + " " + arr[i].table + i + " on " + arr[i].criteria + " ";
+			ret += "join " + arr[i].table + " on " + arr[i].criteria + " ";
 		}
 		else {
 			ret += "join " + arr[i].table + " on fk_parentid = parent.id ";
