@@ -1,3 +1,7 @@
+/**
+ * Roundtrip tests test sql gen and json recovery against
+ * live mysql database
+ */
 var norm = require( '../norm' );
 var assert = require( 'assert' );
 

@@ -1,3 +1,7 @@
+/**
+ * Test json recovery of object graph from record set
+ */
+
 var typeOf = require( '../util' ).typeOf;
 var disjoin = require('../to_json-join').disjoin_set;
 

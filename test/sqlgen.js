@@ -1,3 +1,7 @@
+/**
+ * Test sql generation from query spec
+ */
+
 var norm = require( '../norm' );
 var assert = require( 'assert' );
 
