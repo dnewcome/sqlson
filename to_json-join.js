@@ -1,3 +1,5 @@
+var typeOf = require( './util' ).typeOf;
+
 /**
  * Reconstruct json object array from record set
  * Iterate over composite recordset one row at a time
@@ -30,14 +32,7 @@ function disjoin_set( query, recordset, idkey, idval ) {
 function disjoin( query, record, recordset ) {
 	var ret = {};
 	var table = query[0];
-	// case that there is a 'where' clause
-	// This is kind of a hack. Probably should try to simplify this
-	if( typeOf( query[1] ) == 'string' ) {
-		var subquery = query[2];
-	}
-	else {
-		var subquery = query[1];
-	}
+	var subquery = query[2];
 	for( item in subquery ) {
 		if( typeOf( subquery[item] ) == 'array' ) { 
 			var val = subquery[item];
