@@ -4,7 +4,11 @@ cslist = require('./util').cslist;
 /**
  * Generate sql query 
  */
-exports.genSql = function genSql( table, obj, where ) {
+exports.genSql = function genSql( query ) {
+	var table = query[0];
+	var obj = query[2];
+	var where = query[1];
+
 	var ret = "";
 	var joins = [];
 
