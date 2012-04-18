@@ -2,12 +2,12 @@
  * Test sql generation from query spec
  */
 
-var norm = require( '../norm' );
+var sqlson = require( '../query' );
 var assert = require( 'assert' );
 
 function doTest( query, expected ) {
-	var actual = norm.genSql( query );
-	assert.equal(expected, norm.genSql( query ) );
+	var actual = sqlson.genSql( query );
+	assert.equal(expected, sqlson.genSql( query ) );
 }
 
 /**

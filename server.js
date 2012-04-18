@@ -1,5 +1,5 @@
 var express = require('express');
-var norm = require('./norm');
+var query = require('./query');
 var disjoin = require('./disjoin').disjoin_set;
 var getClient = require('./getclient.js').getClient;
 
@@ -12,7 +12,7 @@ app.post('/query', function(req, res){
 
 	var client = getClient();
 	// var sql = "select " + cslist( getfields( req.body[0], req.body[1], joins ) ) + " from " + req.body[0] + joinClause( joins ); 
-	var sql = norm.genSql( req.body[0], req.body[1] ); 
+	var sql = query.genSql( req.body[0], req.body[1] ); 
 	console.log( sql );
 	client.query(
 		sql, [], 

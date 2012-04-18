@@ -2,7 +2,7 @@
  * Roundtrip tests test sql gen and json recovery against
  * live mysql database
  */
-var norm = require( '../norm' );
+var sqlson = require( '../query' );
 var assert = require( 'assert' );
 
 /**
@@ -25,7 +25,7 @@ exports.testJsonGen = function() {
 		} 
 	];
 	var client = getClient();
-	var sql = norm.genSql( query ); 
+	var sql = sqlson.genSql( query ); 
 	console.log( "testJsonGen: "  + sql );
 	console.log( sql );
 	client.query(
