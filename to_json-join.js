@@ -1,4 +1,5 @@
 var typeOf = require( './util' ).typeOf;
+var mergeLikeIds = require( './deepmerge' ).mergeLikeIds;
 
 /**
  * Reconstruct json object array from record set
@@ -14,6 +15,7 @@ function disjoin_set( query, recordset ) {
 	for( var i=0; i < recordset.length; i++ ) {
 		ret.push( disjoin( query, recordset[i] ) );
 	}
+	mergeLikeIds( ret );
 	return ret;
 }
 
