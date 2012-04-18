@@ -5,15 +5,16 @@
 var assert = require( 'assert' );
 var disjoin = require('../to_json-join').disjoin_set;
 var deepmerge = require( '../deepmerge' ).deepmerge;
-/*
+var mergeLikeIds = require( '../deepmerge' ).mergeLikeIds;
+
 exports.toJson = function() {
 	var query = [ 
 		"parent", null, { 
-			"idd":"id", 
+			"id":"id", 
 			"textt":"text",
 			"children": [ 
 				"child", "child.fk_parentid = parent.id", { 
-					"iddd":"id", 
+					"id":"id", 
 					"texttt":"text"
 				} 
 			]
@@ -35,28 +36,33 @@ exports.toJson = function() {
 	];
 	var expected = [
 		{
-			"idd": 1,
-			"textt": "first parent",
 			"children": [
 				{
-					"iddd": 1,
+					"children": [],
+					"id": 1,
 					"texttt": "child 1 of first parent"
 				},
 				{
-					"iddd": 2,
+					"children": [],
+					"id": 2,
 					"texttt": "child 2 of first parent"
 				}
-			]
+			],
+			"id": 1,
+			"textt": "first parent"
 		}
 	];
 
 	var actual = disjoin( query, recordset );
+
+	console.log( 'actual' );
 	console.log( JSON.stringify( actual, null, 4 ));
+	console.log( 'expected' );
+	console.log( JSON.stringify( expected, null, 4 ));
 	assert.deepEqual( expected, actual );
 	
 };
 
-*/
 exports.toJson2 = function() {
 	var query = [ 
 		"parent", null, { 
@@ -110,15 +116,7 @@ exports.toJson2 = function() {
 		}
 	];
 
-	// this code is duplicated in deepmerge.js
 	var actual = disjoin( query, recordset );
-	for( var i=0; i<actual.length; i++ ) {
-		for( var j=0; j<actual.length; j++ ) {
-			if( actual[i].id == actual[j].id ) {
-				deepmerge( actual[i], actual[j] );
-			}
-		}
-	}
 
 	console.log( 'expected' );
 	console.log( JSON.stringify( expected, null, 4 ));
