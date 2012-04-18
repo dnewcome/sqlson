@@ -4,8 +4,8 @@
 
 var assert = require( 'assert' );
 var disjoin = require('../disjoin').disjoin_set;
-var deepmerge = require( '../deepmerge' ).deepmerge;
-var mergeLikeIds = require( '../deepmerge' ).mergeLikeIds;
+var deepmerge = require( '../merge' ).deepmerge;
+var mergeLikeIds = require( '../merge' ).mergeLikeIds;
 
 exports.toJson = function() {
 	var query = [ 

@@ -1,6 +1,6 @@
 var assert = require('assert');
-var deepmerge = require('../deepmerge').deepmerge;
-var mergeArray = require('../deepmerge').mergeArray;
+var deepmerge = require('../merge').deepmerge;
+var mergeArray = require('../merge').mergeArray;
 
 exports.deepmerge = function() {
 	var input1 = {

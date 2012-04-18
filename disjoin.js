@@ -1,5 +1,5 @@
 var typeOf = require( './util' ).typeOf;
-var mergeLikeIds = require( './deepmerge' ).mergeLikeIds;
+var mergeLikeIds = require( './merge' ).mergeLikeIds;
 
 /**
  * Reconstruct json object array from record set
