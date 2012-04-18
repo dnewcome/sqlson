@@ -91,6 +91,10 @@ Run the tests using expresso
 The server component uses Express.
 Integration tests require MySQL and the node.js mysql library
 
+# Limitations
+
+Can't perform self-joins due to lack of aliases in the generated sql.
+
 # License
 
 MIT License, copyright 2012 Dan Newcome

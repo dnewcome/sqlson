@@ -6,8 +6,6 @@ function getClient() {
 	client.user = 'root';
 	client.password = 'root';
 
-	client.connect();
-	// client.query( 'use memex');
 	client.useDatabase( 'jsquery', function(){} );
 	return client;
 }
