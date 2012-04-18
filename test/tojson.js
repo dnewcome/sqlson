@@ -3,7 +3,7 @@
  */
 
 var assert = require( 'assert' );
-var disjoin = require('../to_json-join').disjoin_set;
+var disjoin = require('../disjoin').disjoin_set;
 var deepmerge = require( '../deepmerge' ).deepmerge;
 var mergeLikeIds = require( '../deepmerge' ).mergeLikeIds;
 

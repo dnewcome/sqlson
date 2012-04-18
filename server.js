@@ -1,6 +1,6 @@
 var express = require('express');
 var norm = require('./norm');
-var disjoin = require('./to_json-join').disjoin_set;
+var disjoin = require('./disjoin').disjoin_set;
 var getClient = require('./getclient.js').getClient;
 
 var app = express.createServer();

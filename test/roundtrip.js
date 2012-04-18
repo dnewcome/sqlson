@@ -10,7 +10,7 @@ var assert = require( 'assert' );
  */
 exports.testJsonGen = function() {
 	var getClient = require('../getclient.js').getClient;
-	var disjoin = require('../to_json-join').disjoin_set;
+	var disjoin = require('../disjoin').disjoin_set;
 
 	var query = [ 
 		"parent", null, { 
