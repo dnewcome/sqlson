@@ -27,14 +27,16 @@ exports.deepmerge = deepmerge = function( o1, o2 ) {
  * TODO: this possibly belongs in disjoin
  */
 exports.mergeLikeIds = mergeLikeIds = function( arr ) {
+	ret = [];
 	for( var i=0; i<arr.length; i++ ) {
 		for( var j=0; j<arr.length; j++ ) {
 			if( i != j && arr[i].id == arr[j].id ) {
-				deepmerge( arr[i], arr[j] );
-				arr.splice( j, 1 );
+				ret.push( deepmerge( arr[i], arr[j] ) );
+				// arr.splice( j, 1 );
 			}
 		}
 	}
+	return ret;
 }
 
 /* 

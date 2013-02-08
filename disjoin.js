@@ -15,21 +15,22 @@ function disjoin_set( query, recordset ) {
 	for( var i=0; i < recordset.length; i++ ) {
 		ret.push( disjoin( query, recordset[i] ) );
 	}
-	mergeLikeIds( ret );
-	return ret;
+	var ret2 = mergeLikeIds( ret );
+	console.log("records after disjoin: ", ret2.length);
+	return ret2;
 }
 
 /**
  * Reconstruct single json object from record 
  */
 function disjoin( query, record ) {
-	console.log('recursing ', query );
+	// console.log('recursing ', query );
 	var ret = {};
 	ret.children = [];
 	var table = query[0];
 	var subquery = query[2];
 	for( item in subquery ) {
-		console.log( item );
+		// console.log( item );
 		if( typeOf( subquery[item] ) == 'array' ) { 
 			var val = subquery[item];
 			ret[item] = [disjoin( subquery[item], record )];

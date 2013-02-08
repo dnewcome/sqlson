@@ -62,11 +62,28 @@ strings:
         } 
     ];
 
-A query specification is a JS array with the table name, the SQL WHERE clause and an
-object template that maps the field names to JS object attributes.
+A query specification is a set of nested JS arrays with the table name, the SQL WHERE clause and an
+object template that maps the field names to JS object attributes. The object tempate consists
+of a map between the desired output field identifiers and the field names in the SQL schema.
+The SQL schema identifiers must match those of the target schema but the keys may be named 
+as desired except as described below.
+
+"parent" and "child" in the above example are literally the table names as defined in the database schema. 
+The "children" property is used internally to identify the subquery. This field must be named exactly
+as shown above. In future version we may be able to detect that this collection represents 
+the related records in some other way. Otherwise, property names for the resulting object
+graph may be named using any valid javascript identifiers.
+
+Note that when converting from tuples to javascript objects we perform a map reduce
+process that relies on the "id" property of the children to merge the final result
+set. This field must be called "id". Hopefully this can be relaxed in 
+the future.
 
 We can use sqlson to generate the sql required to perform the query and disjoin the resulting
 recordset. 
+
+The following code example shows how to use the node mysql client to query data and
+output the results as JSON:
 
 	var sql = genSql( query ); 
 	client.query(
