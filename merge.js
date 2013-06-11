@@ -29,14 +29,27 @@ exports.deepmerge = deepmerge = function( o1, o2 ) {
 exports.mergeLikeIds = mergeLikeIds = function( arr ) {
 	ret = [];
 	for( var i=0; i<arr.length; i++ ) {
-		for( var j=0; j<arr.length; j++ ) {
-			if( i != j && arr[i].id == arr[j].id ) {
-				ret.push( deepmerge( arr[i], arr[j] ) );
-				// arr.splice( j, 1 );
-			}
+		var idx = idExists( arr[i].id, ret );
+		if( idx ) {
+			ret[idx] = deepmerge( arr[i], ret[idx] );
+		}
+		else {
+			ret.push( arr[i] );
 		}
 	}
 	return ret;
+}
+
+/**
+ * find out if id exists in array
+ */
+function idExists( id, arr ) {
+	for( var i=0; i<arr.length; i++ ) {
+		if( arr[i].id == id ) {
+			return i;
+		}
+	}
+	return false;
 }
 
 /* 

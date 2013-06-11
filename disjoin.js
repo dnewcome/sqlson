@@ -1,5 +1,6 @@
 var typeOf = require( './util' ).typeOf;
-var mergeLikeIds = require( './merge' ).mergeLikeIds;
+// var mergeLikeIds = require( './merge' ).mergeLikeIds;
+var mergeLikeIds = require( './treemerge' ).treeMerge;
 
 /**
  * Reconstruct json object array from record set
@@ -15,7 +16,8 @@ function disjoin_set( query, recordset ) {
 	for( var i=0; i < recordset.length; i++ ) {
 		ret.push( disjoin( query, recordset[i] ) );
 	}
-	var ret2 = mergeLikeIds( ret );
+	// var ret2 = mergeLikeIds( ret );
+	var ret2 = mergeLikeIds( [], ret );
 	console.log("records after disjoin: ", ret2.length);
 	return ret2;
 }
