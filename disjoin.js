@@ -1,6 +1,5 @@
 var typeOf = require( './util' ).typeOf;
-// var mergeLikeIds = require( './merge' ).mergeLikeIds;
-var mergeLikeIds = require( './treemerge' ).treeMerge;
+var treeMerge = require( './treemerge' ).treeMerge;
 
 /**
  * Reconstruct json object array from record set
@@ -12,14 +11,13 @@ var mergeLikeIds = require( './treemerge' ).treeMerge;
  * idval - if child, join value
  */
 function disjoin_set( query, recordset ) {
-	var ret = [];
+	var unmerged = [];
 	for( var i=0; i < recordset.length; i++ ) {
-		ret.push( disjoin( query, recordset[i] ) );
+		unmerged.push( disjoin( query, recordset[i] ) );
 	}
-	// var ret2 = mergeLikeIds( ret );
-	var ret2 = mergeLikeIds( [], ret );
-	console.log("records after disjoin: ", ret2.length);
-	return ret2;
+	var ret = treeMerge( [], unmerged );
+	console.log("records after disjoin: ", ret.length);
+	return ret;
 }
 
 /**
