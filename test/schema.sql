@@ -1,6 +1,7 @@
 drop database jsquery;
 create database jsquery;
 use jsquery;
+create user 'jsquery' identified by 'jsquery';
 create table parent (
 	id integer not null auto_increment primary key,
 	text varchar(100) not null

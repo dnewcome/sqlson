@@ -2,13 +2,14 @@
   "name": "sqlson",
   "version": "0.0.1",
   "description": "Template-based query language for node.js and MySQL.",
-  "keywords": ["library"],
+  "keywords": [
+    "library"
+  ],
   "repository": "",
   "author": "Dan Newcome <dnewcome@elevenprime.com> (http://newcome.wordpress.com)",
   "dependencies": {
     "express": ">= 2.3.11",
     "mysql": ">= 0.9.4"
   },
-  "devDependencies": {},
   "main": "server"
 }

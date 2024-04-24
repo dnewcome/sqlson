@@ -8,6 +8,7 @@ exports.genSql = function genSql( query ) {
 	var table = query[0];
 	var obj = query[2];
 	var where = query[1];
+	console.log(where);
 
 	var ret = "";
 	var joins = [];
@@ -28,7 +29,7 @@ function joinClause( arr ) {
 	var ret = " ";
 	for( var i=0; i < arr.length; i++ ) {
 		// TODO: join clause is hard coded
-		if( arr[i].criteria ) {
+		if( false /*arr[i].criteria*/ ) {
 			// we always give table alias to support multiple joins of same table
 			ret += "join " + arr[i].table + " on " + arr[i].criteria + " ";
 		}

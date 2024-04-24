@@ -3,14 +3,15 @@
  * integration tests that touch the database.
  */
 function getClient() {
-	var Client = require('mysql').Client,
-	client = new Client()
+	var mysql = require('mysql');
+	var connection = new mysql.createConnection({
+		host: 'localhost',
+		user: 'jsquery',
+		password: 'jsquery',
+		database: 'jsquery'
+	});
 
-	client.user = 'root';
-	client.password = 'root';
-
-	client.useDatabase( 'jsquery', function(){} );
-	return client;
+	return connection;
 }
 
 exports.getClient = getClient;
